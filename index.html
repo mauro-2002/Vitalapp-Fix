@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VitalApp - Práctica DevOps</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root { --primary: #9e6a90; --secondary: #766788; }
+        body { font-family: 'Segoe UI', sans-serif; background: #f8f9fa; }
+        .navbar-brand { color: var(--primary) !important; font-weight: bold; }
+        .btn-primary { background: var(--primary); border: var(--primary); }
+        .hero { background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%); color: white; padding: 80px 0; }
+        .card { border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); margin-bottom: 20px; }
+        .demo-badge { position: fixed; bottom: 20px; left: 20px; background: var(--primary); color: white; padding: 5px 10px; border-radius: 15px; font-size: 12px; z-index: 1000; }
+    </style>
+</head>
+<body>
+    <div class="demo-badge">🚀 DevOps Activo</div>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+        <div class="container">
+            <a class="navbar-brand" href="#">VitalApp</a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="#inicio">Inicio</a>
+                <a class="nav-link" href="#citas">Citas</a>
+                <a class="nav-link" href="#resultados">Resultados</a>
+            </div>
+        </div>
+    </nav>
+
+    <section id="inicio" class="hero">
+        <div class="container text-center">
+            <h1 class="display-4 fw-bold mb-4">VitalApp DevOps</h1>
+            <p class="lead mb-4">Práctica de DevOps - Frontend Autónomo</p>
+            <div class="alert alert-light d-inline-block">✅ Sistema Operativo</div>
+        </div>
+    </section>
+
+    <section id="citas" class="py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center mb-4" style="color: var(--primary);">Agendar Cita</h2>
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-header text-white" style="background: var(--primary);">
+                            <h5 class="mb-0">Solicitud de Cita</h5>
+                        </div>
+                        <div class="card-body">
+                            <form id="citaForm">
+                                <div class="mb-3">
+                                    <label class="form-label">Nombre completo</label>
+                                    <input type="text" class="form-control" id="nombre" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Email</label>
+                                    <input type="email" class="form-control" id="email" required>
+                                </div>
+                                <button type="submit" class="btn w-100 text-white" style="background: var(--primary);">
+                                    Agendar Cita Demo
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="resultados" class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-4" style="color: var(--primary);">Resultados Médicos</h2>
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header text-white" style="background: var(--primary);">
+                            <h5 class="mb-0">Consultar Resultados</h5>
+                        </div>
+                        <div class="card-body">
+                            <button onclick="cargarResultadosDemo()" class="btn w-100 text-white" style="background: var(--primary);">
+                                Cargar Resultados Demo
+                            </button>
+                            <div id="resultadosLista" class="mt-3">
+                                <p class="text-muted text-center">Haz clic en el botón para cargar resultados de demostración</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="text-white py-4" style="background: var(--secondary);">
+        <div class="container text-center">
+            <p class="mb-0">VitalApp - Práctica DevOps | Despliegue Continuo</p>
+        </div>
+    </footer>
+
+    <script>
+        // Sistema simple de demo
+        document.getElementById('citaForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const nombre = document.getElementById('nombre').value;
+            const email = document.getElementById('email').value;
+            
+            if (nombre && email) {
+                alert('✅ Cita agendada para: ' + nombre + '\nEmail: ' + email + '\n\n🔧 Esta es una demostración DevOps');
+                document.getElementById('citaForm').reset();
+            } else {
+                alert('❌ Por favor completa todos los campos');
+            }
+        });
+
+        function cargarResultadosDemo() {
+            const resultados = [
+                { examen: 'Hemograma Completo', estado: 'Completado', fecha: '2024-03-15' },
+                { examen: 'Perfil Lipídico', estado: 'Completado', fecha: '2024-03-10' },
+                { examen: 'Radiografía', estado: 'En Proceso', fecha: '2024-03-05' }
+            ];
+            
+            const lista = document.getElementById('resultadosLista');
+            lista.innerHTML = '';
+            
+            resultados.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'd-flex justify-content-between align-items-center border-bottom py-2';
+                div.innerHTML = `
+                    <div>
+                        <strong>${item.examen}</strong><br>
+                        <small class="text-muted">${item.fecha}</small>
+                    </div>
+                    <span class="badge ${item.estado === 'Completado' ? 'bg-success' : 'bg-warning'}">${item.estado}</span>
+                `;
+                lista.appendChild(div);
+            });
+            
+            alert('✅ Resultados de demostración cargados\n\n🔧 Esta es una simulación para la práctica DevOps');
+        }
+
+        console.log('🚀 VitalApp DevOps - Sistema inicializado correctamente');
+    </script>
+</body>
+</html>
